@@ -4,24 +4,33 @@
 # increasing or decreasing screen brightness using 'brightnessctl'
 
 # params
-jump=5000
+jump=7000
 
 current_brightness=$(brightnessctl g)
 
-# increase
+# increase (smooth)
 if [ $1 == "up" ]; then
-        let "new_brightness = $current_brightness + $jump"
-        brightnessctl s "$new_brightness"
-        exit 0
+    let goal=$current_brightness+$jump
+
+    for ((i = $current_brightness ; i <= $goal ; i += 100)); do 
+        brightnessctl s "$i"
+    done
+
+    brightnessctl s "$goal"
+    exit 0
 fi
 
-# decrease
+# decrease (smooth)
 if [ $1 == "down" ]; then
-        let "new_brightness = $current_brightness - $jump"
-        brightnessctl s "$new_brightness"
-        exit 0
+    let goal=$current_brightness-$jump
+
+    for ((i = $current_brightness ; i >= $goal ; i -= 100)); do 
+        brightnessctl s "$i"
+    done
+
+    brightnessctl s "$goal"
+    exit 0
 fi
 
 # Args not valid
 exit 1
-
