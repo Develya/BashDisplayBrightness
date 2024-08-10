@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Made to be used by i3wm config for defining hotkeys for:
-# increasing or decreasing screen brightness using 'brightnessctl'
+# Made to be used for defining hotkeys to:
+# increase or decrease screen brightness using 'brightnessctl'
 
 # params
 jump=7000
